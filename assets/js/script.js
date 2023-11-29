@@ -1,31 +1,26 @@
-
-document.addEventListener('DOMContentLoaded', function () {
 const searchBtn = document.querySelector('#searchButton');
-const searchRec = document.querySelector('#recipeSearch')
+const searchRec = document.querySelector('#recipeSearch');
 
+// Function to fetch recipe information based on recipe ID
+const apiNinjas = '34OI8Z++sC2o2ypun3q94w==IYDU5y8iMC0HEDlA';
+const apiOptions = {
+  method: 'GET',
+  headers: {'x-api-key' : '34OI8Z++sC2o2ypun3q94w==IYDU5y8iMC0HEDlA'}
+}
 
-//Function to fetch recipie based on users ingredient search 
-const spoonacularApiKey = '9ca96ef0fe1a4f36aa8fdc4f837e73db';
+searchRecipiesAPI = function(){
+  const searchInput = searchRec.value;
+  console.log(searchInput);
+  const apiNinjasRecURL =`https://api.api-ninjas.com/v1/recipe?query=${searchInput}`;
 
-getRecipesByIngredients = function() {
-  const searchIngreditents = searchRec.value;
-  console.log(searchIngreditents)
-  const spcURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacularApiKey}&includeIngredients=${searchIngreditents}&number=5`;
-  fetch(spcURL)
-  .then(function (response) {
+  fetch(apiNinjasRecURL, apiOptions)
+  .then(function(response){
     return response.json();
   })
-  .then(function (data) {
+  .then(function(data) {
     console.log(data);
-    // Handle the recipe data here
   })
-  .catch(function (error) {
-    console.error('Error fetching recipes:', error);
-  });
 }
 
 
-
-searchBtn.addEventListener('click', getRecipesByIngredients);
-
-})
+searchBtn.addEventListener('click', searchRecipiesAPI);
