@@ -23,4 +23,4 @@ searchRecipiesAPI = function(){
 }
 
 
-searchBtn.addEventListener('click', searchRecipiesAPI);
+searchBtn.addEventListener('click', searchRecipiesAPI)
