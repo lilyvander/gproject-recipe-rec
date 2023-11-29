@@ -1,32 +1,31 @@
-const searchBtn = document.getElementById('#searchButton');
 
+document.addEventListener('DOMContentLoaded', function () {
+const searchBtn = document.querySelector('#searchButton');
+const searchRec = document.querySelector('#recipeSearch')
 
 
 //Function to fetch recipie based on users ingredient search 
-function fetchSCAPI() {
-    const apiKeySpoon = '9ca96ef0fe1a4f36aa8fdc4f837e73db';
-    const endPointSpoon = 'GET https://api.spoonacular.com/recipes/findByIngredients'
+const spoonacularApiKey = '9ca96ef0fe1a4f36aa8fdc4f837e73db';
 
-    fetch(endPointSpoon, apiKeySpoon)
-    .then(function (response) {
-        return response.json();
-      })
-      .then(function (recipeData) {
-        console.log(recipeDatadata)
-      })  
-        var recCard = document.createElement('card');
-        var recInfo = document.createElement('p');
-        var link = document.createElement('a');
-       
-        //Need to figure out what data will pull and what elements to assign it too 
-
-        tableData.appendChild(link);
-        createTableRow.appendChild(tableData);
-        tableBody.appendChild(createTableRow);
+getRecipesByIngredients = function() {
+  const searchIngreditents = searchRec.value;
+  console.log(searchIngreditents)
+  const spcURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${spoonacularApiKey}&includeIngredients=${searchIngreditents}&number=5`;
+  fetch(spcURL)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    // Handle the recipe data here
+  })
+  .catch(function (error) {
+    console.error('Error fetching recipes:', error);
+  });
+}
 
 
-    };
 
-//Function to store recipe via local storage 
-searchBtn.addEventListener('click', fetchSCAPI);
-console.log(fetchSCAPI());
+searchBtn.addEventListener('click', getRecipesByIngredients);
+
+})
